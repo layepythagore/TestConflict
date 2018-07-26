@@ -1,0 +1,12 @@
+//APEX SCRIPT TO ASSIGN PERMISSION SET (HARD CODED USER)
+user u = [SELECT ID from User WHERE username = 'dpinett.uat@copa.do'];    
+permissionSet ps = [select id, name from permissionSet where name = 'Permission_Set_Name'];   //Permission Set API Name
+PermissionSetAssignment  psa = new PermissionSetAssignment (PermissionSetId = ps.id, AssigneeId = U.Id);
+insert psa;
+
+//APEX SCRIPT TO ASSIGN PERMISSION SET (ENVIRONMENT VARIABLES)
+//Use single quotes on the Env Vars for this script.
+user u = [SELECT ID from User WHERE username = {!Environment.Var_Name}];    
+permissionSet ps = [select id, name from permissionSet where name = 'Permission_Set_Name']; //Permission Set API Name   
+PermissionSetAssignment  psa = new PermissionSetAssignment (PermissionSetId = ps.id, AssigneeId = U.Id);
+insert psa;
